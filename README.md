@@ -73,36 +73,36 @@ WHERE transaction_id IS NULL
    OR total_sale IS NULL;
 
 ##Data Analysis & Findings
-1. Sales on 2022-11-05
+##1. Sales on 2022-11-05
 SELECT * FROM retail_sales
 WHERE sale_date = '2022-11-05';
 
-2. Clothing sales in November 2022
+##2. Clothing sales in November 2022
 SELECT * FROM retail_sales
 WHERE category = 'Clothing'
   AND MONTH(sale_date) = 11
   AND YEAR(sale_date) = 2022;
 
-3. Total sales by category
+##3. Total sales by category
 SELECT category, SUM(total_sale) AS total_sales
 FROM retail_sales
 GROUP BY category;
 
-4. Average age of customers in Beauty category
+##4. Average age of customers in Beauty category
 SELECT AVG(age) AS avg_age
 FROM retail_sales
 WHERE category = 'Beauty';
 
-5. Transactions where total_sale > 1000
+##5. Transactions where total_sale > 1000
 SELECT * FROM retail_sales
 WHERE total_sale > 1000;
 
-6. Sales count by gender and category
+##6. Sales count by gender and category
 SELECT category, gender, COUNT(*) AS total_trans
 FROM retail_sales
 GROUP BY category, gender;
 
-7. Best-selling month each year
+##7. Best-selling month each year
 SELECT year, month, total_sales FROM (
     SELECT YEAR(sale_date) AS year,
            MONTH(sale_date) AS month,
@@ -114,19 +114,19 @@ SELECT year, month, total_sales FROM (
 ) ranked
 WHERE rnk = 1;
 
-8. Top 5 customers by sales
+##8. Top 5 customers by sales
 SELECT customer_id, SUM(total_sale) AS total_sales
 FROM retail_sales
 GROUP BY customer_id
 ORDER BY total_sales DESC
 LIMIT 5;
 
-9. Unique customers by category
+##9. Unique customers by category
 SELECT category, COUNT(DISTINCT customer_id) AS unique_customers
 FROM retail_sales
 GROUP BY category;
 
-10. Sales by time shift (Morning/Afternoon/Evening)
+##10. Sales by time shift (Morning/Afternoon/Evening)
 SELECT CASE 
          WHEN HOUR(sale_time) < 12 THEN 'Morning'
          WHEN HOUR(sale_time) BETWEEN 12 AND 17 THEN 'Afternoon'
